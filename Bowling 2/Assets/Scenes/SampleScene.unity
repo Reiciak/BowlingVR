@@ -2415,8 +2415,10 @@ MonoBehaviour:
   ball3: {fileID: 267741110}
   Res: {fileID: 1602702390}
   cube: {fileID: 0}
-  speed: 2
   TBPP: {fileID: 1071735671}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!1 &284955699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,8 +3191,10 @@ MonoBehaviour:
   ball3: {fileID: 77079793}
   Res: {fileID: 1193116534}
   cube: {fileID: 0}
-  speed: 2
   TBPP: {fileID: 1376166964}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!64 &333976423
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4196,8 +4200,10 @@ MonoBehaviour:
   ball3: {fileID: 651581659}
   Res: {fileID: 784107747}
   cube: {fileID: 21092457}
-  speed: 2
   TBPP: {fileID: 0}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!1 &647554713
 GameObject:
   m_ObjectHideFlags: 0
@@ -7334,8 +7340,10 @@ MonoBehaviour:
   ball3: {fileID: 1650742791}
   Res: {fileID: 563719269}
   cube: {fileID: 1181318104}
-  speed: 2
   TBPP: {fileID: 1181318106}
+  BPU: {fileID: 7773157511316728537}
+  Rb: {fileID: 1519329053}
+  speed: 2
 --- !u!54 &1040307770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7888,8 +7896,10 @@ MonoBehaviour:
   ball3: {fileID: 1652002687}
   Res: {fileID: 348231404}
   cube: {fileID: 0}
-  speed: 2
   TBPP: {fileID: 445354818}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!1 &1153447296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8959,8 +8969,10 @@ MonoBehaviour:
   ball3: {fileID: 1105773685}
   Res: {fileID: 922535231}
   cube: {fileID: 0}
-  speed: 2
   TBPP: {fileID: 855171732}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!1001 &1361698766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8986,7 +8998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.598
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8994,7 +9006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.821
+      value: 12.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14177,8 +14189,10 @@ MonoBehaviour:
   ball3: {fileID: 1916542841}
   Res: {fileID: 1586580619}
   cube: {fileID: 0}
-  speed: 2
   TBPP: {fileID: 868803711}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!64 &1675764303
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15579,8 +15593,10 @@ MonoBehaviour:
   ball3: {fileID: 583198074}
   Res: {fileID: 1294715051}
   cube: {fileID: 0}
-  speed: 2
   TBPP: {fileID: 1302826947}
+  BPU: {fileID: 0}
+  Rb: {fileID: 0}
+  speed: 2
 --- !u!1 &1945961993
 GameObject:
   m_ObjectHideFlags: 0
@@ -16122,7 +16138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2084548712
 Transform:
   m_ObjectHideFlags: 0

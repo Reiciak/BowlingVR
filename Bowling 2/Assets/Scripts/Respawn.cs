@@ -12,13 +12,14 @@ public class Respawn : MonoBehaviour
     [SerializeField] private Transform Res;
     [SerializeField] private Transform cube;
 
-    private List<GameObject> bowling;
-
-    public float speed = 2f;
-    //bool forward = true;
-
     [SerializeField] private Animator TBPP;
-    //[SerializeField] private Animator BPU;
+    [SerializeField] private Animator BPU;
+
+    [SerializeField] private Rigidbody Rb;
+
+    private List<GameObject> bowling;
+    public float speed = 2f;
+
 
     private void Start()
     {
@@ -33,21 +34,24 @@ public class Respawn : MonoBehaviour
 
     private IEnumerator OnTriggerEnter(Collider other)
     {
+        Rb.GetComponent<Rigidbody>().isKinematic = false;
         if (other.CompareTag("Ball1"))
         {
             ball1.transform.position = Res.transform.position;
             Physics.SyncTransforms();
+            //yield return new WaitForSeconds(1);
+            BPU.GetComponent<Animator>().enabled = true;
+            Rb.GetComponent<Rigidbody>().isKinematic = true;
+            BPU.SetBool("UP", true);
             yield return new WaitForSeconds(1);
-            //BPU.GetComponent<Animator>().enabled = true;
-            //BPU.SetBool("UP", true);
-            yield return new WaitForSeconds(2);
-            //BPU.SetBool("UP", false);
+            BPU.SetBool("UP", false);
             TBPP.SetBool("StartAnimation", true);
-            //BPU.SetBool("Down", true);
             yield return new WaitForSeconds(2);
-           // BPU.SetBool("Down", false);
-            //takeBowlingPin = true;
-            //forward = true;
+            BPU.SetBool("UP", false);
+            yield return new WaitForSeconds(1);
+            BPU.SetBool("Down", true);
+            yield return new WaitForSeconds(1);
+            BPU.SetBool("Down", false);
         }
         if (other.CompareTag("Ball2"))
         {
