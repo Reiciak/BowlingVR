@@ -14,17 +14,14 @@ public class Respawn : MonoBehaviour
 
     private List<GameObject> bowling;
 
-    //private bool takeBowlingPin = false;
-
     public float speed = 2f;
     //bool forward = true;
 
     [SerializeField] private Animator TBPP;
-    [SerializeField] private Animator BPU;
+    //[SerializeField] private Animator BPU;
 
     private void Start()
     {
-        //BPU.GetComponent<Animation>().enabled = false;
         foreach (GameObject b in GameObject.FindGameObjectsWithTag("bowling"))
         {
             if (b.GetComponentInParent<Transform>() == this.GetComponentInParent<Transform>())
@@ -41,13 +38,14 @@ public class Respawn : MonoBehaviour
             ball1.transform.position = Res.transform.position;
             Physics.SyncTransforms();
             yield return new WaitForSeconds(1);
-            BPU.GetComponent<Animator>().enabled = true;
-            BPU.SetBool("BowlingPinUp", true);
+            //BPU.GetComponent<Animator>().enabled = true;
+            //BPU.SetBool("UP", true);
             yield return new WaitForSeconds(2);
-            //TBPP.Rebind();
+            //BPU.SetBool("UP", false);
             TBPP.SetBool("StartAnimation", true);
+            //BPU.SetBool("Down", true);
             yield return new WaitForSeconds(2);
-            BPU.SetBool("BowlingPinDown", true);
+           // BPU.SetBool("Down", false);
             //takeBowlingPin = true;
             //forward = true;
         }
@@ -56,7 +54,6 @@ public class Respawn : MonoBehaviour
             ball2.transform.position = Res.transform.position;
             Physics.SyncTransforms();
             yield return new WaitForSeconds(2);
-           // TBPP.Rebind();
             TBPP.SetBool("StartAnimation", true);
         }
         if (other.CompareTag("Ball3"))
@@ -64,7 +61,6 @@ public class Respawn : MonoBehaviour
             ball3.transform.position = Res.transform.position;
             Physics.SyncTransforms();
             yield return new WaitForSeconds(2);
-            //TBPP.Rebind();
             TBPP.SetBool("StartAnimation", true);
         }
     }
