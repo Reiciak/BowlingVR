@@ -52,30 +52,31 @@ public class Respawn : MonoBehaviour
                 SecondThrow(points1, points2);
             }
         }
-        //Debug.Log(points);
     }
     public IEnumerator PickUp(Rigidbody rb, Animator bpu) {
             Physics.SyncTransforms();
         bpu.enabled = true;
         rb.isKinematic = true;
+        rb.freezeRotation = true;
         bpu.SetBool("UP", true);
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(2);
         bpu.SetBool("UP", false);
-            TBPP.SetBool("StartAnimation", true);
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
         bpu.SetBool("Down", true);
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(4);
         bpu.SetBool("Down", false);
-        yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
         rb.velocity = Vector3.zero;
+        rb.freezeRotation = false;
         bpu.enabled = false;
         rb.isKinematic = false;
     }
 
     public IEnumerator BarAnimation(Animator TBPP)
     {
+        yield return new WaitForSeconds(2);
         TBPP.SetBool("StartAnimation", true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
     }
 
     public float FirstThrow(float points1)
