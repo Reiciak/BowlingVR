@@ -17,25 +17,44 @@ public class Respawn : MonoBehaviour
 
     public List<GameObject> bowling_2 = new List<GameObject>();
     public float speed = 2f;
-    private float points1;
-    private float points2;
-    private float score;
+    private int points1;
+    private int points2;
+    private int score;
     private bool Throw = false;
+    private int number = 0;
+    private Dictionary<int, Dictionary<int, int>> Throwes = new Dictionary<int, Dictionary<int, int>>();
+    private Dictionary<int,int> Score = new Dictionary<int, int>();
 
     private void OnTriggerEnter(Collider other)
     {
-        foreach (var bowlingpin in bowling_2)
-        {
-            bowlingpin.GetComponent<Rigidbody>().isKinematic = false;
-            BPU = bowlingpin.GetComponent<Animator>();
-            Rb = bowlingpin.GetComponent<Rigidbody>();
 
-            if (other.CompareTag("Ball1") || other.CompareTag("Ball2") || other.CompareTag("Ball3"))
+        if (other.CompareTag("Ball1") || other.CompareTag("Ball2") || other.CompareTag("Ball3"))
+        {
+            if (Throw)
             {
+                Debug.Log("Second throw ball");
+            }
+            foreach (var bowlingpin in bowling_2)
+            {
+                if (Throw)
+                {
+                    Debug.Log("Itering second ball throw");
+                }
+                bowlingpin.GetComponent<Rigidbody>().isKinematic = false;
+                BPU = bowlingpin.GetComponent<Animator>();
+                Rb = bowlingpin.GetComponent<Rigidbody>();
                 other.transform.position = Res.transform.position;
                 if (bowlingpin.transform.localRotation.x == 0 && bowlingpin.transform.localRotation.y <= Math.Abs(5))
                 {
+                    if (Throw)
+                    {
+                        Debug.Log("Pick up second ball throw");
+                    }
                     StartCoroutine(PickUp(Rb, BPU));
+                }
+                if (Throw)
+                {
+                    Debug.Log("Start animation second ball throw");
                 }
                 StartCoroutine(BarAnimation(TBPP));
             }
@@ -43,14 +62,15 @@ public class Respawn : MonoBehaviour
         }
         if (other.CompareTag("bowling"))
         {
-            points1 += 1;
             if (Throw)
             {
-                FirstThrow(points1);
+                FirstThrow();
             }
             else{
-                SecondThrow(points1, points2);
+                SecondThrow();
             }
+            Throwes.Add(number++, Score);
+
         }
     }
     public IEnumerator PickUp(Rigidbody rb, Animator bpu) {
@@ -75,36 +95,43 @@ public class Respawn : MonoBehaviour
     public IEnumerator BarAnimation(Animator TBPP)
     {
         yield return new WaitForSeconds(2);
+        Debug.Log("Start Animation!!!");
         TBPP.SetBool("StartAnimation", true);
         yield return new WaitForSeconds(1);
     }
 
-    public float FirstThrow(float points1)
+    public void FirstThrow()
     {
-        if(points1 == 10)
+        if (!Score.ContainsKey(1))
+        {
+            Score.Add(1, 0);    
+        }
+        var points = Score.GetValueOrDefault(1) + 1;
+        Score.Remove(1);
+        Score.Add(1, points);
+        Debug.LogError(points);
+        if (points == 10)
         {
             Debug.Log("STRIKE");
-            return points1;
-        }
-        else
-        {
-            Debug.Log($"Points: {points1}");
-            return points1;
         }
     }
-    public float SecondThrow(float points1, float points2)
+    public void SecondThrow()
     {
-        points2 += 1;
-        score = points1 + points2;
-        if (score == 10)
+        if (!Score.ContainsKey(2))
+        {
+            Score.Add(2, 0);
+        }
+        var points = Score.GetValueOrDefault(2) + 1;
+        Score.Remove(2);
+        Score.Add(2, points);
+        Debug.LogError(points);
+        if (points == 10)
         {
             Debug.Log("SPARE");
-            return 10+points2;
         }
         else
         {
-            Debug.Log($"Points: {score}");
-            return score;
+            //Debug.Log($"Points: {score}");
         }
     }
 }
