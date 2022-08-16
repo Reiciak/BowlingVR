@@ -21,7 +21,7 @@ public class Respawn : MonoBehaviour
     private bool throwes = false;
     private int number = 0;
     private Dictionary<int, Dictionary<int, int>> Throwes = new Dictionary<int, Dictionary<int, int>>();
-    private Dictionary<int,int> Score = new Dictionary<int, int>();
+    private Dictionary<int, int> Score = new Dictionary<int, int>();
     private Dictionary<int, int> Totalpoints = new Dictionary<int, int>();
     private int numberOfThrowes = 0;
     private bool isStrike = false;
@@ -52,12 +52,12 @@ public class Respawn : MonoBehaviour
             {
                 FirstThrow();
             }
-            else{
-                if (isStrike)
+            else
+            {
+                if (!isStrike)
                 {
-                    return;
+                    SecondThrow();
                 }
-                SecondThrow();
             }
             Throwes.Add(number++, Score);
         }
@@ -68,17 +68,18 @@ public class Respawn : MonoBehaviour
             CountingPoints();
         }
     }
-    private IEnumerator PickUp(Rigidbody rb, Animator bpu) {
-            Physics.SyncTransforms();
+    private IEnumerator PickUp(Rigidbody rb, Animator bpu)
+    {
+        Physics.SyncTransforms();
         bpu.enabled = true;
         rb.isKinematic = true;
         rb.freezeRotation = true;
         bpu.SetBool("UP", true);
-            yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
         bpu.SetBool("Down", true);
-            yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(6);
         bpu.SetBool("UP", false);
-            yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
         rb.velocity = Vector3.zero;
         rb.freezeRotation = false;
         bpu.enabled = false;
@@ -87,9 +88,9 @@ public class Respawn : MonoBehaviour
 
     private IEnumerator BarAnimation(Animator TBPP)
     {
-            yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
         TBPP.SetBool("StartAnimation", true);
-            yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
         TBPP.SetBool("StartAnimation", false);
     }
 
@@ -97,7 +98,7 @@ public class Respawn : MonoBehaviour
     {
         if (!Score.ContainsKey(1))
         {
-            Score.Add(1, 0);    
+            Score.Add(1, 0);
         }
         var points = Score.GetValueOrDefault(1) + 1;
         Score.Remove(1);
@@ -125,48 +126,34 @@ public class Respawn : MonoBehaviour
         }
     }
 
-    private int CountingPoints()
+    private void CountingPoints()
     {
-        if (Score[1] == 10)
+        if (Throwes[number - 1][1] == 10)
         {
             Strike();
         }
-        if (Score[1]+ Score[2] == 10)
+        else if (Throwes[number - 1][1] + Throwes[number - 1][2] == 10)
         {
             Spare();
         }
-            var score = Score.Sum(x => x.Value);
-            Totalpoints.Remove(1);
-            Totalpoints.Add(1, score);
-            Debug.Log($"points: {Totalpoints[1]}");
-            return 0;
+        var score = Score.Sum(x => x.Value);
+        Totalpoints.Remove(number);
+        Totalpoints.Add(number, score);
+        Debug.Log($"points: {Totalpoints[number]}");
     }
 
-    private int Strike()
+    private void Strike()
     {
-        if (!Score.ContainsKey(1))
-        {
-            return 0;
-        }else if (!Score.ContainsKey(2))
-        {
-            var score = 10 + Score.Sum(x => x.Value);
-            Totalpoints.Add(number--, score);
-        }
-        return 0;
+        var score = 10 + Score.Sum(x => x.Value);
+        Totalpoints.Remove(number - 1);
+        Totalpoints.Add(number - 1, score);
     }
 
-    private int Spare()
+    private void Spare()
     {
-        if (!Score.ContainsKey(1))
-        {
-            return 0;
-        }
-        else if (!Score.ContainsKey(2))
-        {
-            var score = 10 + Score[1];
-            Totalpoints.Add(number--, score);
-        }
-        return 0;
+        var score = 10 + Score[1];
+        Totalpoints.Remove(number - 1);
+        Totalpoints.Add(number - 1, score);
     }
 }
 
