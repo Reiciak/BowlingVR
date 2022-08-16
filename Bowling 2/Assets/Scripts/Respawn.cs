@@ -80,12 +80,10 @@ public class Respawn : MonoBehaviour
         rb.freezeRotation = true;
         bpu.SetBool("UP", true);
             yield return new WaitForSeconds(2);
-        bpu.SetBool("UP", false);
-            yield return new WaitForSeconds(1);
         bpu.SetBool("Down", true);
-            yield return new WaitForSeconds(4);
-        bpu.SetBool("Down", false);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(6);
+        bpu.SetBool("UP", false);
+        yield return new WaitForSeconds(1);
         rb.velocity = Vector3.zero;
         rb.freezeRotation = false;
         bpu.enabled = false;
@@ -98,6 +96,7 @@ public class Respawn : MonoBehaviour
         Debug.Log("Start Animation!!!");
         TBPP.SetBool("StartAnimation", true);
         yield return new WaitForSeconds(1);
+        TBPP.SetBool("StartAnimation", false);
     }
 
     public void FirstThrow()
