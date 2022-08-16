@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using System.Timers;
 
 public class Respawn : MonoBehaviour
@@ -17,63 +18,57 @@ public class Respawn : MonoBehaviour
 
     public List<GameObject> bowling_2 = new List<GameObject>();
     public float speed = 2f;
-    private int points1;
-    private int points2;
-    private int score;
-    private bool Throw = false;
+    private bool throwes = false;
     private int number = 0;
     private Dictionary<int, Dictionary<int, int>> Throwes = new Dictionary<int, Dictionary<int, int>>();
     private Dictionary<int,int> Score = new Dictionary<int, int>();
+    private Dictionary<int, int> Totalpoints = new Dictionary<int, int>();
+    private int numberOfThrowes = 0;
+    private bool isStrike = false;
+    private static int throwesInRound = 2;
 
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag("Ball1") || other.CompareTag("Ball2") || other.CompareTag("Ball3"))
         {
-            if (Throw)
-            {
-                Debug.Log("Second throw ball");
-            }
             foreach (var bowlingpin in bowling_2)
             {
-                if (Throw)
-                {
-                    Debug.Log("Itering second ball throw");
-                }
                 bowlingpin.GetComponent<Rigidbody>().isKinematic = false;
                 BPU = bowlingpin.GetComponent<Animator>();
                 Rb = bowlingpin.GetComponent<Rigidbody>();
                 other.transform.position = Res.transform.position;
                 if (bowlingpin.transform.localRotation.x == 0 && bowlingpin.transform.localRotation.y <= Math.Abs(5))
                 {
-                    if (Throw)
-                    {
-                        Debug.Log("Pick up second ball throw");
-                    }
                     StartCoroutine(PickUp(Rb, BPU));
-                }
-                if (Throw)
-                {
-                    Debug.Log("Start animation second ball throw");
                 }
                 StartCoroutine(BarAnimation(TBPP));
             }
-            Throw = !Throw;
+            throwes = !throwes;
         }
         if (other.CompareTag("bowling"))
         {
-            if (Throw)
+            if (throwes)
             {
                 FirstThrow();
             }
             else{
+                if (isStrike)
+                {
+                    return;
+                }
                 SecondThrow();
             }
             Throwes.Add(number++, Score);
-
+        }
+        numberOfThrowes++;
+        if (numberOfThrowes == throwesInRound)
+        {
+            Debug.Log(".");
+            CountingPoints();
         }
     }
-    public IEnumerator PickUp(Rigidbody rb, Animator bpu) {
+    private IEnumerator PickUp(Rigidbody rb, Animator bpu) {
             Physics.SyncTransforms();
         bpu.enabled = true;
         rb.isKinematic = true;
@@ -83,23 +78,22 @@ public class Respawn : MonoBehaviour
         bpu.SetBool("Down", true);
             yield return new WaitForSeconds(6);
         bpu.SetBool("UP", false);
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1);
         rb.velocity = Vector3.zero;
         rb.freezeRotation = false;
         bpu.enabled = false;
         rb.isKinematic = false;
     }
 
-    public IEnumerator BarAnimation(Animator TBPP)
+    private IEnumerator BarAnimation(Animator TBPP)
     {
-        yield return new WaitForSeconds(2);
-        Debug.Log("Start Animation!!!");
+            yield return new WaitForSeconds(2);
         TBPP.SetBool("StartAnimation", true);
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1);
         TBPP.SetBool("StartAnimation", false);
     }
 
-    public void FirstThrow()
+    private void FirstThrow()
     {
         if (!Score.ContainsKey(1))
         {
@@ -112,9 +106,10 @@ public class Respawn : MonoBehaviour
         if (points == 10)
         {
             Debug.Log("STRIKE");
+            isStrike = true;
         }
     }
-    public void SecondThrow()
+    private void SecondThrow()
     {
         if (!Score.ContainsKey(2))
         {
@@ -128,10 +123,50 @@ public class Respawn : MonoBehaviour
         {
             Debug.Log("SPARE");
         }
-        else
+    }
+
+    private int CountingPoints()
+    {
+        if (Score[1] == 10)
         {
-            //Debug.Log($"Points: {score}");
+            Strike();
         }
+        if (Score[1]+ Score[2] == 10)
+        {
+            Spare();
+        }
+            var score = Score.Sum(x => x.Value);
+            Totalpoints.Remove(1);
+            Totalpoints.Add(1, score);
+            Debug.Log($"points: {Totalpoints[1]}");
+            return 0;
+    }
+
+    private int Strike()
+    {
+        if (!Score.ContainsKey(1))
+        {
+            return 0;
+        }else if (!Score.ContainsKey(2))
+        {
+            var score = 10 + Score.Sum(x => x.Value);
+            Totalpoints.Add(number--, score);
+        }
+        return 0;
+    }
+
+    private int Spare()
+    {
+        if (!Score.ContainsKey(1))
+        {
+            return 0;
+        }
+        else if (!Score.ContainsKey(2))
+        {
+            var score = 10 + Score[1];
+            Totalpoints.Add(number--, score);
+        }
+        return 0;
     }
 }
 
