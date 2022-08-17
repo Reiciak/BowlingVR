@@ -26,12 +26,17 @@ public class Respawn : MonoBehaviour
     private int numberOfThrowes = 0;
     private bool isStrike = false;
     private static int throwesInRound = 2;
+    private int a = 0;
+
 
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag("Ball1") || other.CompareTag("Ball2") || other.CompareTag("Ball3"))
         {
+            numberOfThrowes++;
+            throwes = !throwes;
+            a++;
             foreach (var bowlingpin in bowling_2)
             {
                 bowlingpin.GetComponent<Rigidbody>().isKinematic = false;
@@ -44,13 +49,23 @@ public class Respawn : MonoBehaviour
                 }
                 StartCoroutine(BarAnimation(TBPP));
             }
-            throwes = !throwes;
+
+            if (a % 2 == 1)
+            {
+                Throwes.Add(number++, Score);
+            }
         }
-        if (other.CompareTag("bowling"))
+        if (other.CompareTag("bowling") || a >= 1)
         {
             if (throwes)
             {
+                Debug.Log("cos");
                 FirstThrow();
+                if (isStrike)
+                {
+                    numberOfThrowes++;
+                    Debug.Log($"ile {numberOfThrowes}   ");
+                }
             }
             else
             {
@@ -59,14 +74,18 @@ public class Respawn : MonoBehaviour
                     SecondThrow();
                 }
             }
-            Throwes.Add(number++, Score);
         }
-        numberOfThrowes++;
+    }
+    public void CountPoints()
+    {
+        Debug.Log($"LICZY {numberOfThrowes}   ");
         if (numberOfThrowes == throwesInRound)
         {
             Debug.Log(".");
             CountingPoints();
         }
+
+
     }
     private IEnumerator PickUp(Rigidbody rb, Animator bpu)
     {
@@ -128,15 +147,17 @@ public class Respawn : MonoBehaviour
 
     private void CountingPoints()
     {
-        if (Throwes[number - 1][1] == 10)
+        Debug.Log($"Number is {number}");
+        // if (Throwes[number][1] >=2) { };
+        if (Throwes[number][1] == 10)
         {
             Strike();
         }
-        else if (Throwes[number - 1][1] + Throwes[number - 1][2] == 10)
-        {
-            Spare();
-        }
-        var score = Score.Sum(x => x.Value);
+        //else if (Throwes[number - 1][1] + Throwes[number - 1][2] == 10)
+        //{
+        //    Spare();
+        //}
+        var score = Score.Sum(x => x.Value); //-2 odjêcie punktów za kule
         Totalpoints.Remove(number);
         Totalpoints.Add(number, score);
         Debug.Log($"points: {Totalpoints[number]}");
@@ -145,8 +166,8 @@ public class Respawn : MonoBehaviour
     private void Strike()
     {
         var score = 10 + Score.Sum(x => x.Value);
-        Totalpoints.Remove(number - 1);
-        Totalpoints.Add(number - 1, score);
+        Totalpoints.Remove(number);
+        Totalpoints.Add(number, score);
     }
 
     private void Spare()
