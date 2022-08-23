@@ -11,15 +11,15 @@ public class Respawn : MonoBehaviour
     [SerializeField] private Transform ball2;
     [SerializeField] private Transform ball3;
     [SerializeField] private Transform Res;
-    [SerializeField] private Transform cube;
+    //[SerializeField] private Transform cube;
     [SerializeField] private Animator TBPP;
     [SerializeField] private Animator BPU;
     [SerializeField] private Rigidbody Rb;
     [SerializeField] public GameObject BowlingPinPrefab;
-
-
+    [SerializeField] private Transform bowlingTransform;
+    private Vector3 bowlingRespawnPosition;
     public List<GameObject> bowling_2 = new List<GameObject>();
-    public float speed = 2f;
+    //public float speed = 2f;
     private bool throwes = false;
     private int number = 0;
     private Dictionary<int, Dictionary<int, int>> Throwes = new Dictionary<int, Dictionary<int, int>>();
@@ -29,15 +29,13 @@ public class Respawn : MonoBehaviour
     private bool isStrike = false;
     private static int throwesInRound = 2;
     private int a = 0;
+    public RespawnBowlingPin rbp;
 
     private void Start()
     {
-        if (numberOfThrowes == throwesInRound)
+        if (bowlingTransform != null)
         {
-            Debug.Log("koniec animacji 2");
-            Instantiate(BowlingPinPrefab, new Vector3(-6.535f, 0.04f, 0.357f), Quaternion.identity);
-            StartCoroutine(BarAnimation(TBPP));
-            StartCoroutine(NewBowlingPin(Rb, BPU));
+            bowlingRespawnPosition = bowlingTransform.position;
         }
     }
 
@@ -47,8 +45,6 @@ public class Respawn : MonoBehaviour
         if (other.CompareTag("Ball1") || other.CompareTag("Ball2") || other.CompareTag("Ball3"))
         {
             numberOfThrowes++;
-            throwes = !throwes;
-            Debug.Log($"throwes: {throwes}");
             a++;
             foreach (var bowlingpin in bowling_2)
             {
@@ -68,20 +64,20 @@ public class Respawn : MonoBehaviour
                 Throwes.Add(number++, Score);
             }
         }
-        if (other.CompareTag("bowling") || a >= 1) //|| a >= 1
+        if (other.CompareTag("bowling"))
         {
-            if (throwes)
+            if (!throwes)
             {
                 Debug.Log("rzut 1");
                 FirstThrow();
                 if (isStrike)
                 {
-                    //numberOfThrowes++;
                     Debug.Log($"ile {numberOfThrowes}   ");
                 }
             }
             else
             {
+                Debug.Log(!isStrike);
                 if (!isStrike)
                 {
                     Debug.Log("rzut 2");
@@ -98,6 +94,10 @@ public class Respawn : MonoBehaviour
             Debug.Log(".");
             CountingPoints();
         }
+        //if (numberOfThrowes != throwesInRound)
+        //{
+        //    //RespawnBowlingPin();
+        //}
     }
 
     private IEnumerator NewBowlingPin(Rigidbody rb, Animator bpu)
@@ -106,7 +106,7 @@ public class Respawn : MonoBehaviour
         bpu.enabled = true;
         rb.isKinematic = true;
         rb.freezeRotation = true;
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(5);
         bpu.SetBool("UP", false);
         yield return new WaitForSeconds(1);
         rb.velocity = Vector3.zero;
@@ -135,13 +135,13 @@ public class Respawn : MonoBehaviour
 
     private IEnumerator BarAnimation(Animator TBPP)
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         TBPP.SetBool("StartAnimation", true);
         yield return new WaitForSeconds(1);
         TBPP.SetBool("StartAnimation", false);
     }
 
-    private void FirstThrow()
+    public void FirstThrow()
     {
         if (!Score.ContainsKey(1))
         {
@@ -151,13 +151,13 @@ public class Respawn : MonoBehaviour
         Score.Remove(1);
         Score.Add(1, points);
         Debug.Log(points);
-        if (points == 11)
+        if (points == 10)
         {
             Debug.Log("STRIKE");
             isStrike = true;
         }
     }
-    private void SecondThrow()
+    public void SecondThrow()
     {
         if (!Score.ContainsKey(2))
         {
@@ -167,42 +167,69 @@ public class Respawn : MonoBehaviour
         Score.Remove(2);
         Score.Add(2, points);
         Debug.Log(points);
-        if (Score[1] + Score[2] == 12)
+        if (Score[1] + Score[2] == 10)
         {
             Debug.Log("SPARE");
         }
     }
 
-    private void CountingPoints()
+    public void CountingPoints()
     {
         Debug.Log($"Round Number is {number}");
-        //if (Throwes[number][1] >= 2) { };
-        if (Throwes[number - 1][1] == 11)
+        if (Throwes[number - 1][1] == 10)
         {
             Strike();
         }
-        else if (Throwes[number - 1][1] + Throwes[number - 1][2] == 12)
+        else if (Throwes[number - 1][1] + Throwes[number - 1][2] == 10)
         {
             Spare();
         }
-        var score = Score.Sum(x => x.Value) - 2; //-2 odjêcie punktów za kule
+        StartCoroutine(BarAnimation(TBPP));
+        var score = Score.Sum(x => x.Value); //-2 odjêcie punktów za kule
         Totalpoints.Remove(number);
         Totalpoints.Add(number, score);
         Debug.Log($"points: {Totalpoints[number]}");
+        RespawnBowlingPin();
+        numberOfThrowes = 0;
     }
 
-    private void Strike()
+    public void Strike()
     {
-        var score = 20 + Score.Sum(x => x.Value) - 1;
+        Debug.Log("tfuStrike");
+        var score = 20 + Score.Sum(x => x.Value);
         Totalpoints.Remove(number);
         Totalpoints.Add(number, score);
     }
 
-    private void Spare()
+    public void Spare()
     {
-        var score = 10 + Score[1] - 2;
+        Debug.Log("tfuSpare");
+        var score = 10 + Score[1];
         Totalpoints.Remove(number - 1);
         Totalpoints.Add(number - 1, score);
+    }
+
+    public void SetThrowes()
+    {
+        throwes = !throwes;
+    }
+
+    public void RespawnBowlingPin()
+    {
+        if (numberOfThrowes == throwesInRound)
+        {
+            //StartCoroutine(BarAnimation(TBPP));
+            Debug.Log("koniec animacji 2");
+            StartCoroutine(MakeBowlingPin());
+            //StartCoroutine(NewBowlingPin(Rb, BPU));
+        }
+    }
+
+    private IEnumerator MakeBowlingPin()
+    {
+        yield return new WaitForSeconds(7);
+        GameObject newBowling = Instantiate(BowlingPinPrefab, bowlingRespawnPosition + new Vector3(-0f, 0.00f, 0.0f), Quaternion.identity,transform.parent); //new Vector3(-6.535f, 0.04f, 0.357f)
+   //     newBowling.transform.localScale = bowlingTransform.localScale; //pulling sytem
     }
 }
 

@@ -2606,13 +2606,13 @@ MonoBehaviour:
   ball2: {fileID: 1369900363}
   ball3: {fileID: 267741110}
   Res: {fileID: 1602702390}
-  cube: {fileID: 0}
   TBPP: {fileID: 1071735671}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!1 &284955699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3384,13 +3384,13 @@ MonoBehaviour:
   ball2: {fileID: 826601528}
   ball3: {fileID: 77079793}
   Res: {fileID: 1193116534}
-  cube: {fileID: 0}
   TBPP: {fileID: 1376166964}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!64 &333976423
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5047,13 +5047,13 @@ MonoBehaviour:
   ball2: {fileID: 732975126}
   ball3: {fileID: 651581659}
   Res: {fileID: 784107747}
-  cube: {fileID: 21092457}
   TBPP: {fileID: 0}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!1 &647554713
 GameObject:
   m_ObjectHideFlags: 0
@@ -7696,7 +7696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4550aac934c2d024196ac23acc60aeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawn: {fileID: 1344952803}
+  respawn: {fileID: 0}
 --- !u!1 &868803709
 GameObject:
   m_ObjectHideFlags: 0
@@ -8851,7 +8851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040307766}
   m_LocalRotation: {x: -0, y: -0, z: -0.000000014901161, w: 1}
-  m_LocalPosition: {x: -10.15, y: -1.22, z: 10.604998}
+  m_LocalPosition: {x: -10.15, y: -1.98, z: 10.604998}
   m_LocalScale: {x: 5, y: 1, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8887,11 +8887,11 @@ MonoBehaviour:
   ball2: {fileID: 1969945310}
   ball3: {fileID: 1650742791}
   Res: {fileID: 563719269}
-  cube: {fileID: 1181318104}
   TBPP: {fileID: 1181318106}
   BPU: {fileID: 7773157511316728537}
   Rb: {fileID: 1519329053}
-  BowlingPinPrefab: {fileID: 0}
+  BowlingPinPrefab: {fileID: 4765242810383648138, guid: 4e15b87f8e52fe647b3a0b8e2680fa1d, type: 3}
+  bowlingTransform: {fileID: 1057082650}
   bowling_2:
   - {fileID: 5536861097208197867}
   - {fileID: 2911351458791427578}
@@ -8903,7 +8903,7 @@ MonoBehaviour:
   - {fileID: 7496023506062109005}
   - {fileID: 3159218861358617762}
   - {fileID: 5745913740888912693}
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!54 &1040307770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9692,13 +9692,13 @@ MonoBehaviour:
   ball2: {fileID: 1011444198}
   ball3: {fileID: 1652002687}
   Res: {fileID: 348231404}
-  cube: {fileID: 0}
   TBPP: {fileID: 445354818}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!1001 &1150710059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11183,13 +11183,13 @@ MonoBehaviour:
   ball2: {fileID: 68343582}
   ball3: {fileID: 1105773685}
   Res: {fileID: 922535231}
-  cube: {fileID: 0}
   TBPP: {fileID: 855171732}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!1 &1347558998
 GameObject:
   m_ObjectHideFlags: 0
@@ -11383,15 +11383,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.23
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.58
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.34
+      value: 10.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11597,6 +11597,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1361698774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361698768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6ba269d88c8b4492ab633e5f86537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1369900362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14160,7 +14172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.846
+      value: 12.952
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14659,13 +14671,13 @@ MonoBehaviour:
   ball2: {fileID: 1529207251}
   ball3: {fileID: 1916542841}
   Res: {fileID: 1586580619}
-  cube: {fileID: 0}
   TBPP: {fileID: 868803711}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!64 &1675764303
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16451,13 +16463,13 @@ MonoBehaviour:
   ball2: {fileID: 225863368}
   ball3: {fileID: 583198074}
   Res: {fileID: 1294715051}
-  cube: {fileID: 0}
   TBPP: {fileID: 1302826947}
   BPU: {fileID: 0}
   Rb: {fileID: 0}
   BowlingPinPrefab: {fileID: 0}
+  bowlingTransform: {fileID: 0}
   bowling_2: []
-  speed: 2
+  rbp: {fileID: 0}
 --- !u!1 &1945961993
 GameObject:
   m_ObjectHideFlags: 0
@@ -16518,15 +16530,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.36
+      value: 2.55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.86
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.56
+      value: 10.99
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c29015054cf8d5443929d17229e16f60, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26538,7 +26550,7 @@ MeshCollider:
   m_GameObject: {fileID: 8485173160832694316}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
