@@ -11,15 +11,14 @@ public class Respawn : MonoBehaviour
     [SerializeField] private Transform ball2;
     [SerializeField] private Transform ball3;
     [SerializeField] private Transform Res;
-    //[SerializeField] private Transform cube;
     [SerializeField] private Animator TBPP;
     [SerializeField] private Animator BPU;
     [SerializeField] private Rigidbody Rb;
     [SerializeField] public GameObject BowlingPinPrefab;
     [SerializeField] private Transform bowlingTransform;
+
     private Vector3 bowlingRespawnPosition;
     public List<GameObject> bowling_2 = new List<GameObject>();
-    //public float speed = 2f;
     private bool throwes = false;
     private int number = 0;
     private Dictionary<int, Dictionary<int, int>> Throwes = new Dictionary<int, Dictionary<int, int>>();
@@ -30,6 +29,8 @@ public class Respawn : MonoBehaviour
     private static int throwesInRound = 2;
     private int a = 0;
     public RespawnBowlingPin rbp;
+    public bool stop = false;
+    TextMesh Text;
 
     private void Start()
     {
@@ -68,20 +69,26 @@ public class Respawn : MonoBehaviour
         {
             if (!throwes)
             {
-                Debug.Log("rzut 1");
-                FirstThrow();
-                if (isStrike)
+                if (!stop)
                 {
-                    Debug.Log($"ile {numberOfThrowes}   ");
+                    Debug.Log("rzut 1");
+                    FirstThrow();
+                    if (isStrike)
+                    {
+                        Debug.Log($"ile {numberOfThrowes}   ");
+                    }
                 }
             }
             else
             {
-                Debug.Log(!isStrike);
-                if (!isStrike)
+                if (!stop)
                 {
-                    Debug.Log("rzut 2");
-                    SecondThrow();
+                    Debug.Log(!isStrike);
+                    if (!isStrike)
+                    {
+                        Debug.Log("rzut 2");
+                        SecondThrow();
+                    }
                 }
             }
         }
@@ -94,10 +101,6 @@ public class Respawn : MonoBehaviour
             Debug.Log(".");
             CountingPoints();
         }
-        //if (numberOfThrowes != throwesInRound)
-        //{
-        //    //RespawnBowlingPin();
-        //}
     }
 
     private IEnumerator NewBowlingPin(Rigidbody rb, Animator bpu)
@@ -184,6 +187,7 @@ public class Respawn : MonoBehaviour
         {
             Spare();
         }
+        stop = !stop;
         StartCoroutine(BarAnimation(TBPP));
         var score = Score.Sum(x => x.Value); //-2 odjêcie punktów za kule
         Totalpoints.Remove(number);
@@ -221,16 +225,21 @@ public class Respawn : MonoBehaviour
             //StartCoroutine(BarAnimation(TBPP));
             Debug.Log("koniec animacji 2");
             StartCoroutine(MakeBowlingPin());
-            //StartCoroutine(NewBowlingPin(Rb, BPU));
+            StartCoroutine(NewBowlingPin(Rb, BPU));
         }
     }
 
     private IEnumerator MakeBowlingPin()
     {
         yield return new WaitForSeconds(7);
-        GameObject newBowling = Instantiate(BowlingPinPrefab, bowlingRespawnPosition + new Vector3(-0f, 0.00f, 0.0f), Quaternion.identity,transform.parent); //new Vector3(-6.535f, 0.04f, 0.357f)
-   //     newBowling.transform.localScale = bowlingTransform.localScale; //pulling sytem
+        GameObject newBowling = Instantiate(BowlingPinPrefab, bowlingRespawnPosition + new Vector3(-0f, 3f, 0.0f), Quaternion.identity,transform.parent); //new Vector3(-6.535f, 0.04f, 0.357f)
+        stop = !stop;
     }
+
+    //private void DisplayPoints()
+    //{
+    //    Text.text = "ll";
+    //}
 }
 
 
