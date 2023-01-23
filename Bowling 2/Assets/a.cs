@@ -4,12 +4,27 @@ using UnityEngine;
 public class a : MonoBehaviour
 {
     public Respawn respawn;
-    //public RespawnBowlingPin respawn;
 
-    public void CountPoints() {
-        if (respawn!=null)
+    public void CountPoints()
+    {
+       Debug.Log("A class");
+        if (respawn != null)
         {
-            respawn.CountPoints();
+            respawn.points1 = 0;
+            respawn.points2 = 0;
+            if (respawn.nextRound)
+            {
+                Debug.LogError("NEXT ROUND");
+                respawn.nextRound = false;
+                respawn.NextRound();
+                return;
+            }
+            if (respawn.GetThrowes())
+            {
+                Debug.LogError("THROWES");
+                respawn.CountPoints();
+            }
+            Debug.LogError("NEXT ROUND");
             respawn.SetThrowes();
         }
     }

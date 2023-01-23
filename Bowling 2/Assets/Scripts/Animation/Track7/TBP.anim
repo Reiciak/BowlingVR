@@ -37,8 +37,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 2.9166667
-        value: {x: -6.24, y: 0.69, z: 38.699997}
+        time: 2.5166667
+        value: {x: -8.44, y: 0.69, z: 38.699997}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -48,8 +48,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 3.75
         value: {x: -3.254, y: 0.68, z: 38.699997}
-        inSlope: {x: 0.1420799, y: 0, z: 0}
-        outSlope: {x: 0.1420799, y: 0, z: 0}
+        inSlope: {x: 0.11919423, y: 0, z: 0}
+        outSlope: {x: 0.11919423, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -128,8 +128,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.9166667
-        value: -6.24
+        time: 2.5166667
+        value: -8.44
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -139,8 +139,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 3.75
         value: -3.254
-        inSlope: 0.1420799
-        outSlope: 0.1420799
+        inSlope: 0.11919423
+        outSlope: 0.11919423
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -183,7 +183,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.9166667
+        time: 2.5166667
         value: 0.69
         inSlope: 0
         outSlope: 0
@@ -238,7 +238,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 2.9166667
+        time: 2.5166667
         value: 38.699997
         inSlope: 0
         outSlope: 0
@@ -274,4 +274,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 4.5833335
+    functionName: CountPoints
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
